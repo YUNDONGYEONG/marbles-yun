@@ -214,7 +214,7 @@ function build_a_tx(data, pos) {
 				</p>
 				<p>
 					<div class="marbleLegend">회 사: </div>
-					<div class="marbleName">` + company + `</div>
+					<div class="marbleName">` + "MYHOME" + `</div>
 				</p>
 				<p>
 					<div class="marbleLegend">고객 Id: </div>
