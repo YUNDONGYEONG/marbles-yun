@@ -1,0 +1,81 @@
+#txStoryPanel
+
+	span.fa.fa-close.closeTxStory#closeTxStoryPos
+
+	//----------------- Step 1 Content
+	.txStepWrap#txStep1.inactiveStep
+		.txStatusWrap
+			.txStatus
+		.txLegend 제안서 작성
+		.txStoryWrap
+			.marbleWrap
+				div.ball#proposeMarbleStable.hideBorders.leftPos(title="Your marble tx")
+				div.ball#proposeMarble.hideBorders.leftPos
+				div.ball#marbleBorderTop.leftPos
+				div.ball#marbleBorderBottom.leftPos
+				div.ball#marbleBorderLeft.leftPos
+				div.ball#marbleBorderRight.leftPos
+		.txDescription
+			span 사용자가 원장에 read/write하는 트랜잭션을 요청하고 dapp이 
+			span 이를 endorsing peer에게 전달해주는 단계이다. 
+
+
+	//----------------- Step 2 Content
+	.txStepWrap#txStep2.inactiveStep
+		.txStatusWrap
+			.txStatus
+		.txLegend 보 증
+		.txStoryWrap 
+			.marbleWrap
+				div.ball#endorseMarbleStable(title="Your marble tx")
+					span.fa.fa-check
+				div.ball#endorseMarble
+					span.fa.fa-check
+		.txDescription
+			span Endorsing peer들이 트랜잭션을 전달받고 다음 항목들을 검사한다.  
+			span 1.트랜잭션 형식의 적절성 여부 2. 이전에 동일한 트랜잭션 제출 여부 3.MSP를 통한 서명 유효 여부 
+			span 4.요청에 대한 사용자의 권한 여부,이상이 없으면 체인코드를 시뮬레이션한 후 그 결과값을 자신의 서명과 함께 반환한다.
+
+	//----------------- Step 3 Content
+	.txStepWrap#txStep3.inactiveStep
+		.txStatusWrap
+			.txStatus
+		.txLegend 주 문
+		.txStoryWrap
+			#orderBoxStable 
+				span.ball.ordererMarbles.hideMe(title="Another marble tx")
+					span.fa.fa-check
+				span.ball.ordererMarbles.hideMe(title="Your marble tx")
+					span.fa.fa-check
+				span.ball.ordererMarbles.hideMe(title="Another marble tx")
+					span.fa.fa-check
+				#orderBox Block
+		.txDescription
+			span 앞에서 반환된 결과값과 서명은 다시 order에게 전송되고,
+			span orderer는 이 트랜잭션들을 정렬한 후 블록을 생성하고 committing peer들에게 전송한다. 
+
+	//----------------- Step 4 Content
+	.txStepWrap#txStep4.inactiveStep
+		.txStatusWrap
+			.txStatus
+		.txLegend 검증 및 커밋
+		.txStoryWrap 
+			#commitBoxStable(title="Block")
+				span.fa.fa-search
+		.txDescription
+			span 블록을 전달받은 peer들은 블록에 포함된 트랜잭션들이 보증 정책을 준수하는지 여부와 read/write set 값이 적절한지 확인한다.  
+			span 확인후 트랜잭션 마다 valid/invalid 태그를 표시하여 원장에 저장하고, 유요한 트랜잭션의 write set을 world state에 포함시킨다. 
+
+	div
+	
+
+	#txStoryErrorWrap 
+		span.fa.fa-warning(style="fill: #000;")
+		span#txStoryErrorTxt &nbsp;
+
+	//----------------- All done
+	.stepHelpWrap#doneTxStep
+		h2 호출 완료!
+		br
+		br
+		button(type="button").closeTxStory Close

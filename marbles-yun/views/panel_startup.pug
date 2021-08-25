@@ -1,0 +1,274 @@
+#startUpPanel.hideMe
+
+	span.fa.fa-close#closeStartUp.closeStartUp
+
+	#stepWelcomeWrap
+		#rightSide
+			.headingText.centerText
+				strong MYHOME&nbsp;
+				span 에 오신것을 환영합니다!
+			br
+			p.centerText
+				span.chooseTxt 시작하시겠습니까?
+
+				br
+
+				span.hint.guideHints(style="margin-left: -170px;")
+				button.guideButtons#instantSetup
+					span.fa.fa-rocket &nbsp;&nbsp;&nbsp;
+					span 시작
+				span &nbsp;&nbsp;&nbsp;
+				button.guideButtons#startSteps
+					span.fa.fa-gears &nbsp;&nbsp;&nbsp;
+					span 상세설명
+				span.hint.guideHints
+				br
+				br
+
+				#wait4cc.warningWrap
+					p Your chaincode is still starting. We need to wait...
+					#dateChecked Checking
+
+				#failedSetup.warningWrap
+					p
+						span.fa.fa-bug &nbsp;&nbsp;&nbsp;
+						span Boo, there is an issue with the configuration or network.&nbsp;
+						span Enter the&nbsp;
+						strong Guided
+						spansetup &nbsp;setup to correct it.
+
+			div.centerText
+				include ./template/loading.pug
+
+	//----------------- Step Navigation
+	#stepsWrap
+		.oneStepWrap(stepid="step1").successfulStepIcon.onStep
+			.stepIcon.bounce 1
+		.oneStepWrap(stepid="step2")
+			.stepDivide
+			.stepIcon 2
+		.oneStepWrap.inactive(stepid="step3")
+			.stepDivide
+			.stepIcon 3
+		.oneStepWrap.inactive(stepid="step4")
+			.stepDivide
+			.stepIcon 4
+		.oneStepWrap.inactive(stepid="step5")
+			.stepDivide
+			.stepIcon 5
+		#stepsTitle There are 5 steps to complete. Click a step to jump to it.
+
+
+	#detailsWrap
+
+		//----------------- Step 1 Content [Check Settings + Welcome]
+		#step1.stepWrap.success
+			.stepHeader
+				span.fa.fa-gear
+				span &nbsp;&nbsp;연결 프로필 데이터 확인
+			.stepDescription
+				span 첫 번째 단계는 실수하기 쉬운 connection profile JSON을 확인하는 것이었습니다.
+				br
+				if bag.using_env
+					span Your setup is using an environmental variable for the connection profile.
+					span If you need to edit this, you will need to restart Marbles.
+				else
+					span.backgroundMe /config/#{bag.config_filename}
+					span &nbsp;파일과&nbsp;
+					span.backgroundMe /config/#{bag.cp_filename}
+					span &nbsp;파일을 확인할수있습니다.
+
+				br
+				br
+				span 결과는 아래와 같습니다!
+
+			.failureStep
+				p
+					span Uh oh, there is something wrong with the config files.
+					span The server's console has more information.
+				br
+				p(style="font-weight: 200;")
+					span Checkout the documentation we have on the
+					a(href="https://github.com/IBM-Blockchain/marbles/blob/v4.0/docs/config_file.md" target="_blank" style="color:#fff;") config files.
+			br
+			.successStep Step 1 Complete
+			br
+			br
+			button.nextStep(nextstepid="step2") 다음 단계
+
+		//----------------- Step 2 Content [Enroll Admin]
+		#step2.stepWrap.hidden
+			.stepHeader
+				span.fa.fa-user
+				span &nbsp;&nbsp;등록 관리자
+			.stepDescription
+				span 다음으로, 귀하를 회사의 관리자로 등록합니다.
+				span 이 단계에서 귀하의 인증 기관에서 연결된 프로필의&nbsp;
+				span.backgroundMe 아이디
+				span &nbsp;와&nbsp;
+				span.backgroundMe 비밀번호
+				span &nbsp;를 제공합니다.
+				br
+
+			include ./template/loading.pug
+
+			.failureStep
+				p Sorry, we could not enroll the admin against the CA.
+				p Edit the settings below to try again.
+
+			.startupWrap
+				.settingsExpand
+					span.fa.fa-plus-square
+					span &nbsp;&nbsp;JSON Settings
+
+				.settingsContent
+					.stepInputLegend
+						span CA's
+						span.backgroundMe api_url
+					input(type="text" placeholder="CA ex: 192.168.99.100:8888" name="caUrl" value=bag.creds.ca).longer
+					span.fa.fa-question-circle.settingstooltip
+						span.tooltiptext This is main HTTP url to reach your certificate authority. It should include the protocol and port.
+					br
+					.stepInputLegend
+						span.backgroundMe enrollId
+					input(type="text" placeholder="Enroll Id" name="enrollId" value=bag.creds.admin_id).longer
+					span.fa.fa-question-circle.settingstooltip
+						span.tooltiptext This is a valid enroll id for your CA. It should already be registered on the CA.
+					br
+					.stepInputLegend
+						span.backgroundMe enrollSecret
+					input(type="text" placeholder="Enroll Secret" name="enrollSecret" value=bag.creds.admin_secret).longer
+					span.fa.fa-question-circle.settingstooltip
+						span.tooltiptext The enroll secret is paired with an enroll ID registered on the CA.
+
+			.successStep Step 2 Complete
+			button.nextStep(nextstepid="step3") 다음 단계
+			button.runStep(stepid="step2" nextstepid="step3")#enrollAdmin Try Again
+
+			.showMoreDetails 이것 단계가 왜 중요한가?
+			.moreDetails
+				strong 이 단계가 지나고나면 어플리케이션의 인증서를 다운로드합니다.
+				strong 인증서는 향 후 토큰거래를 인증하는데 사용됩니다.
+				strong &nbsp;즉, 인증서가 없으면 거래가 성립하지 않습니다.
+
+		//----------------- Step 3 Content [Find Chaincode]
+		#step3.stepWrap.hidden
+			.stepHeader
+				span.fa.fa-file-text
+				span &nbsp;&nbsp;체인코드 찾기!
+			.stepDescription
+				span 이제 해당 채널에서 체인코드를 찾습니다.
+				span 연결된 프로필에 채널인 &nbsp;
+				span.backgroundMe #{bag.creds.channel}
+				span &nbsp;과&nbsp;
+				span.backgroundMe #{bag.creds.chaincode_id}
+				span 체인코드를 확인하라고 나와 있습니다.
+				br
+
+			include ./template/loading.pug
+
+			.failureStep
+				p We could not find the chaincode
+				p Edit the settings below to try again
+				p(style="font-weight: 200;") OR...
+				p(style="font-weight: 200;")
+					span If this is your first time using the application then&nbsp;
+					a(href="https://github.com/IBM-Blockchain/marbles/tree/v4.0#3-install-and-instantiate-chaincode" target="_blank" style="color:#fff;") install/instantiate
+					span &nbsp;marbles chaincode
+
+			.startupWrap
+				.settingsExpand
+					span.fa.fa-plus-square
+					span &nbsp;&nbsp;JSON Settings
+
+				.settingsContent
+					.stepInputLegend
+						span Orderer's
+						span.backgroundMe discovery_url
+					input(type="text" placeholder="Orderer ex: 192.168.99.100:5151" name="ordererUrl" value=bag.creds.orderer).longer
+					span.fa.fa-question-circle.settingstooltip
+						span.tooltiptext This is the main gRPC url to reach your orderer. It should include the protocol and port. You will be sending marbles transactions here for ordering.
+					br
+					.stepInputLegend
+						span Peer's
+						span.backgroundMe discovery_url
+					input(type="text" placeholder="Peer ex: 192.168.99.100:7051" name="peerUrl" value=bag.creds.peer).longer
+					span.fa.fa-question-circle.settingstooltip
+						span.tooltiptext This is the main gRPC url to reach your peer.  It should include the protocol and port. You will be sending marble transactions here for endorsement.
+					br
+					.stepInputLegend
+						span.backgroundMe channel
+					input(type="text" placeholder="Channel Name" name="channelId" value=bag.creds.channel).longer
+					span.fa.fa-question-circle.settingstooltip
+						span.tooltiptext This is the name of a channel you created on the blockchain network.
+					br
+					.stepInputLegend
+						span.backgroundMe chaincode_id
+					input(type="text" placeholder="Chaincode ID" name="chaincodeId" value=bag.creds.chaincode_id).longer
+					span.fa.fa-question-circle.settingstooltip
+						span.tooltiptext This is the name of your instantiated chaincode. ex: marbles.
+					br
+					.stepInputLegend
+						span.backgroundMe chaincode_version
+					input(type="text" placeholder="Chaincode ID" name="chaincodeVersion" value=bag.creds.chaincode_version).longer
+					span.fa.fa-question-circle.settingstooltip
+						span.tooltiptext This is the version of your instantiated chaincode. ex: v4.
+
+			.successStep Step 3 Complete
+			br
+			button.nextStep(nextstepid="step4") 다음 단계
+			button.runStep(stepid="step3" nextstepid="step4")#findCcButton Try Again
+
+			.showMoreDetails 이 단계가 왜 중요한가?
+			.moreDetails
+				span Each channel on the network has its own ledger to store transactions.
+				span When our chaincode is running on a channel we will be able to create and store these transactions.
+				span There might be other types of activity on the channel, but we won't be concern with them.
+				br
+				br
+				span The chaincode itself is code written in GoLang.
+				span It defines the assets (marbles) and the rules around marble transfers.
+				span Our chaincode transactions will create and modify marbles, marble owners, and marble companies.
+				span We cannot use this application until the chaincode is instantiated on a channel.
+
+		//----------------- Step 4 Content [Register Marble Owners]
+		#step4.stepWrap.hidden
+			.stepHeader
+				span.fa.fa-group
+				span &nbsp;&nbsp;자산 생성
+			.stepDescription
+				span 우리집 회사대표로서 새로운 이용자를 생성할 수 있습니다.
+				span 생성된 자산은 사용자의 기반이 됩니다.
+				br
+				br
+				span 이 단계에서는 자산 소유자가 3개의 자산을 만듭니다.
+
+			include ./template/loading.pug
+
+			.startupWrap
+				#registerOwnersInputPanel.settingsContent
+					.stepInputLegend
+						span 회사
+					input(type="text" value=bag.marble_company disabled="disabled").longer
+					span.fa.fa-question-circle.settingstooltip
+						span.tooltiptext Edit the config file and restart the application to change your company name.
+					br
+					.stepInputLegend
+						span 고객명
+					input(type="text" placeholder="bob, bill, amy" name="marbleOwners" value=bag.creds.marble_owners).longer
+					span.fa.fa-question-circle.settingstooltip
+						span.tooltiptext Enter the names of the marble owners you want created. Separate them by commas.
+
+			.successStep Step 4 Complete
+			button.nextStep(nextstepid="step5" style="display: inline-block") 건너뛰기
+			button.runStep(stepid="step4" nextstepid="step5")#registerOwners 생 성
+
+		//----------------- Step 5 Content [Finished]
+		#step5.stepWrap.hidden.success
+			span.fa.fa-smile-o.fa-3x
+			.stepDescription(style="text-align:center")
+				span 이제 우리집 어플리케이션을 사용할 준비가 되었습니다!
+				br
+				br
+
+			button(type="button").closeStartUp 확 인
