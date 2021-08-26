@@ -3,7 +3,7 @@ $left_width: 175px;
 #auditWrap {
 	position: absolute;
 	width: 100%;
-	background: $acc_color2;
+	background: #2F4F4F;
 	color: $main_color;
 	height: 100%;
 }
@@ -119,8 +119,8 @@ $left_width: 175px;
 #auditButton{
 	position: fixed;
 	left: -22px;
-	background: $acc_color2;
-	color: $main_color;
+	background: #52b152;
+	color: #ff5b5b;
 	transform: rotate(90deg);
 	padding: 5px 20px;
 	top:50%;
@@ -132,5 +132,6 @@ $left_width: 175px;
 	transition: all .25s linear;
 }
 #auditButton:hover{
-	color: $acc_color1-5;
+	background: #ff5b5b;
+	color: #ffbd5bde;
 }

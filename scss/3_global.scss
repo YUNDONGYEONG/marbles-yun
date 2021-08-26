@@ -26,9 +26,9 @@ $auditSize: 333px;
     height: 60px;
     line-height: 60px;
     width: 100%;
-    background: $acc_color3;
+    background: #e5ebef05;
     font-size: 15px;
-    color: $acc_color1-5;
+    color: #ffffff;
 }
 
 #mainPanel {
@@ -67,7 +67,7 @@ $auditSize: 333px;
 #logoIcon {
     display: inline-block;
     vertical-align: middle;
-    height: 25px;
+    height: 40px;
     margin-right: 15px;
     margin-left: 15px;
 }
@@ -197,7 +197,7 @@ $auditSize: 333px;
 }
 
 .companyPanel {
-    background: $acc_color2;
+    background: #6495ED;
     padding: 0;
     border-radius: 3px;
     margin-bottom: 5px;
@@ -285,7 +285,7 @@ $auditSize: 333px;
     vertical-align: top;
     display: inline-block;
     margin-left: 10px;
-    color: $main_color;
+    color: #f40b0b;
     font-weight: 100;
     font-size: 12px;
 }
@@ -418,7 +418,7 @@ $auditSize: 333px;
 }
 
 .myCompany {
-    background: #545658;
+    background: #1E90FF;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
 }
@@ -461,7 +461,7 @@ $auditSize: 333px;
 }
 
 .whitebg {
-    background: #FFFEF3;
+    background: #1C2026
 }
 
 .blackbg {
@@ -469,31 +469,31 @@ $auditSize: 333px;
 }
 
 .redbg {
-    background: #F15847
+    background: #1C2026
 }
 
 .greenbg {
-    background: #68B369
+    background: #1C2026
 }
 
 .bluebg {
-    background: #3D76BA
+    background: #1C2026
 }
 
 .purplebg {
-    background: #634FA1
+    background: #1C2026
 }
 
 .pinkbg {
-    background: #CC5AA2
+    background: #1C2026
 }
 
 .orangebg {
-    background: #ED8F30
+    background: #1C2026
 }
 
 .yellowbg {
-    background: #DAC94E
+    background: #1C2026
 }
 
 .colorSelectWrap {
@@ -775,7 +775,7 @@ $marble_left: 0;
     display: none;
     position: fixed;
     top: 60px;
-    background: #343d48;
+    background: #2e6da4;
     border: 1px #646b73 solid;
     z-index: 1005;
     padding: 30px;
@@ -971,7 +971,7 @@ $marble_left: 0;
     right: 20px;
     z-index: 3;
     top: 0;
-    color: $acc_color1;
+    color: #ffffff;
     cursor: pointer;
     font-size: 13px;
     transition: background-color 0.3s ease;

@@ -143,7 +143,7 @@ button:disabled:hover {
     font-size: 13px;
     cursor: pointer;
     padding: 5px 10px;
-    background: $hi_color2;
+    background: #52b152;
     color: $main_color;
     transition: background-color 0.2s ease;
     border-radius: 3px;
@@ -170,8 +170,8 @@ input[type="button"]:hover,
 button:hover,
 button.activeButton,
 button.activeButton:focus {
-    border-color: $main_color;
-    background: $hi_color2-5;
+    border-color: #ff5b5b;
+    background: #ff5b5b;
 }
 
 input[type="text"],
